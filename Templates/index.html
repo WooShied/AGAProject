@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gym Client Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form, table {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gym Client Management</h1>
+
+    <div class="search-box">
+        <form method="get">
+            <input type="text" name="search" placeholder="Search by name..." value="{{ request.args.get('search', '') }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2>Add New Client</h2>
+    <form method="POST">
+        <label>Full Name:</label>
+        <input type="text" name="full_name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email">
+
+        <label>Phone:</label>
+        <input type="text" name="phone">
+
+        <label>Membership Start:</label>
+        <input type="date" name="membership_start" required>
+
+        <label>Membership End:</label>
+        <input type="date" name="membership_end" required>
+
+        <label>Membership Type:</label>
+        <input type="text" name="membership_type">
+
+        <label>Goals:</label>
+        <textarea name="goals"></textarea>
+
+        <label>Trainer Assigned:</label>
+        <input type="text" name="trainer_assigned">
+
+        <button type="submit">Add Client</button>
+    </form>
+
+    <h2>Client List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Membership</th>
+                <th>Trainer</th>
+                <th>Goals</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.full_name }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.membership_start }} to {{ client.membership_end }}<br>({{ client.membership_type }})</td>
+                <td>{{ client.trainer_assigned }}</td>
+                <td>{{ client.goals }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">No clients found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

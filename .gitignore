@@ -1,0 +1,10 @@
+# Local database (holds personal data). Never commit it.
+instance/
+*.db
+*.sqlite3
+
+# Python / editor clutter
+__pycache__/
+*.pyc
+.venv/
+tempCodeRunnerFile.*
